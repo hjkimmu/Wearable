@@ -76,12 +76,14 @@ subject_test<-rename(subject_test,  subject=V1)
 ```
 
 ####8. From the data set in previous step, creates a second, independent tidy data set
-with the average of each variable for each activity and each subject.
+with the average of each variable for each activity and each subject. 
 
 ```{r}
 library(dplyr)
 Mean_for_each_activity <- MeanStdData %>% group_by(activity) %>% summarise_each(funs(mean), -activity, -subject)
 Mean_for_each_subject <-  MeanStdData %>% group_by(subject) %>% summarise_each(funs(mean), -activity, -subject)
+newtable<-merge(Mean_for_each_activity,Mean_for_each_subject, all=TRUE, sort=FALSE)
+write.table(newtable, "tidy.txt", row.names = FALSE, quote = FALSE)
 ```
 ---
 title: "README.md"
