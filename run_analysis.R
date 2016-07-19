@@ -54,5 +54,11 @@ library(dplyr)
 Mean_for_each_activity <- MeanStdData %>% group_by(activity) %>% summarise_each(funs(mean), -activity, -subject)
 Mean_for_each_subject <-  MeanStdData %>% group_by(subject) %>% summarise_each(funs(mean), -activity, -subject)
 
+Mean_for_each_activity$activity[Mean_for_each_activity$activity==1]<-"WALKING"
+Mean_for_each_activity$activity[Mean_for_each_activity$activity==2]<-"WALKING_UPSTAIRS"
+Mean_for_each_activity$activity[Mean_for_each_activity$activity==3]<-"WALKING_DOWNSTAIRS"
+Mean_for_each_activity$activity[Mean_for_each_activity$activity==4]<-"SITTING"
+Mean_for_each_activity$activity[Mean_for_each_activity$activity==5]<-"STANDING"
+Mean_for_each_activity$activity[Mean_for_each_activity$activity==6]<-"LAYING"
 newtable<-merge(Mean_for_each_activity,Mean_for_each_subject, all=TRUE, sort=FALSE)
 write.table(newtable, "tidy.txt", row.names = FALSE, quote = FALSE)
